@@ -18,6 +18,7 @@ const Home = ({
 
   const startDateDay = startDate != null ? new Date(startDate).getDate() : null;
   const endDateDay = endDate != null ? new Date(endDate).getDate() : null;
+  const areBothDateSet = startDateDay != null && endDateDay != null;
 
   const startTimestamp =
     startDate != null ? new Date(startDate).getTime() : null;
@@ -37,7 +38,11 @@ const Home = ({
       </Head>
       <main>
         <h1>Reservations draps</h1>
-        <div className={styles.calendar}>
+        <div
+          className={`${styles.calendar} ${
+            !areBothDateSet ? styles.noCurrentReservation : ""
+          }`}
+        >
           {range(1, 32).map(i => {
             return <div key={`day-${i}`}>{i}</div>;
           })}
@@ -59,7 +64,7 @@ const Home = ({
               );
             }
           )}
-          {startDateDay != null && endDateDay != null && (
+          {areBothDateSet && (
             <div
               className={`${styles.reservation} ${styles.current}`}
               style={{
