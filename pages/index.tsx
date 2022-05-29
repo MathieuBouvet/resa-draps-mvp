@@ -50,7 +50,7 @@ const Home = ({
                   key={id}
                   className={styles.reservation}
                   style={{
-                    gridColumn: `${startDay}/${endDay}`,
+                    gridColumn: `${startDay}/${endDay + 1}`,
                     gridRow: `${index + 2}`,
                   }}
                 >
@@ -63,7 +63,7 @@ const Home = ({
             <div
               className={`${styles.reservation} ${styles.current}`}
               style={{
-                gridColumn: `${startDateDay}/${endDateDay}`,
+                gridColumn: `${startDateDay}/${endDateDay + 1}`,
                 gridRow: `${reservations.length + 2}`,
               }}
             >

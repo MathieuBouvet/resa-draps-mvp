@@ -14,7 +14,7 @@ function getTotalSheetsUsedByDays(
   return reservations.reduce((acc, reservation) => {
     const reservationDays = range(
       reservation.startDate,
-      reservation.endDate,
+      reservation.endDate + ONE_DAY,
       ONE_DAY
     );
     // on parcourt chaque jour de la réservation pour ajouter son nombre de draps utilisé à notre objet accumulateur
