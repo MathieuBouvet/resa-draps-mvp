@@ -14,9 +14,11 @@ function getReservationsOfTimePeriod({
       // une reservation est incluse dans l'intervalle
       //  si sa date de fin est incluses dans l'interval
       //  ou si sa date de début est incluses dans l'interval
+      //  ou si la reservation commence avant et termine après l'interval
       return (
         (reservation.endDate >= startDate && reservation.endDate <= endDate) ||
-        (reservation.startDate >= startDate && reservation.startDate <= endDate)
+        (reservation.startDate >= startDate && reservation.startDate <= endDate) ||
+        (reservation.startDate <= startDate && reservation.endDate >= endDate)
       );
     })
   );

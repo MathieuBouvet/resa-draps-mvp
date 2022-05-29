@@ -2,6 +2,7 @@ import type { InferGetStaticPropsType } from "next";
 import { useState } from "react";
 
 import getAllReservations from "../lib/getAllReservations";
+import useAvailableSheets from "../hooks/useAvailableSheets";
 
 import range from "../utils/range";
 
@@ -15,8 +16,17 @@ const Home = ({
   const [startDate, setStartDate] = useState<string | null>(null);
   const [endDate, setEndDate] = useState<string | null>(null);
 
-  const day1 = startDate != null ? new Date(startDate).getDate() : null;
-  const day2 = endDate != null ? new Date(endDate).getDate() : null;
+  const startDateDay = startDate != null ? new Date(startDate).getDate() : null;
+  const endDateDay = endDate != null ? new Date(endDate).getDate() : null;
+
+  const startTimestamp =
+    startDate != null ? new Date(startDate).getTime() : null;
+  const endTimestamp = endDate != null ? new Date(endDate).getTime() : null;
+
+  const { availableSheets, error, isFetching } = useAvailableSheets({
+    startDate: startTimestamp,
+    endDate: endTimestamp,
+  });
 
   return (
     <div className={styles.app}>
@@ -26,7 +36,7 @@ const Home = ({
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main>
-        <h1>Reservations draps Mai</h1>
+        <h1>Reservations draps</h1>
         <div className={styles.calendar}>
           {range(1, 32).map(i => {
             return <div key={`day-${i}`}>{i}</div>;
@@ -49,14 +59,16 @@ const Home = ({
               );
             }
           )}
-          {day1 != null && day2 != null && (
+          {startDateDay != null && endDateDay != null && (
             <div
               className={`${styles.reservation} ${styles.current}`}
               style={{
-                gridColumn: `${day1}/${day2}`,
+                gridColumn: `${startDateDay}/${endDateDay}`,
                 gridRow: `${reservations.length + 2}`,
               }}
-            ></div>
+            >
+              Réservation en cours
+            </div>
           )}
         </div>
         <section className={styles.makeReservation}>
@@ -83,7 +95,22 @@ const Home = ({
               />
             </label>
           </div>
-          <div></div>
+          <div className={styles.availableSheetsContainer}>
+            {error == null ? (
+              <>
+                Draps disponibles
+                <div className={styles.availableSheets}>
+                  {isFetching ? (
+                    <div className="spinner"></div>
+                  ) : (
+                    availableSheets
+                  )}
+                </div>
+              </>
+            ) : (
+              <div>{error}</div>
+            )}
+          </div>
         </section>
       </main>
     </div>

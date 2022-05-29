@@ -24,6 +24,9 @@
 .reservation.current {
   background-color: blueviolet;
   height: 18px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .makeReservation {
@@ -34,4 +37,16 @@
 .inputGroup {
   display: block;
   margin-bottom: 25px;
+}
+
+.availableSheetsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.availableSheets {
+  margin-top: 15px;
+  align-self: center;
+  font-size: 2rem;
 }

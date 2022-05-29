@@ -14,3 +14,18 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 6px solid #bbbbbb;
+  border-right-color: black;
+  animation: spin linear 0.75s infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
