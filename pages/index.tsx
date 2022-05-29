@@ -81,7 +81,7 @@ const Home = ({
                 value={startDate ?? ""}
                 onChange={e => setStartDate(e.target.value)}
                 min="2022-05-01"
-                max="2022-05-31"
+                max={endDate ?? "2022-05-31"}
               />
             </label>
             <label className={styles.inputGroup}>
@@ -90,10 +90,18 @@ const Home = ({
                 type="date"
                 value={endDate ?? ""}
                 onChange={e => setEndDate(e.target.value)}
-                min="2022-05-01"
+                min={startDate ?? "2022-05-01"}
                 max="2022-05-31"
               />
             </label>
+            <button
+              onClick={() => {
+                setStartDate(null);
+                setEndDate(null);
+              }}
+            >
+              reset
+            </button>
           </div>
           <div className={styles.availableSheetsContainer}>
             {error == null ? (
