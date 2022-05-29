@@ -34,7 +34,7 @@ const humanReadableReservations: HumanReadableReservation[] = [
   },
   {
     id: 4,
-    startDate: "2022-05-2",
+    startDate: "2022-05-02",
     endDate: "2022-05-18",
     numberOfSheet: 1,
   },
